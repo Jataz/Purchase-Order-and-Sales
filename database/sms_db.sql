@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Nov 03, 2021 at 07:31 AM
--- Server version: 10.4.19-MariaDB
--- PHP Version: 8.0.7
+-- Host: localhost
+-- Generation Time: Jan 19, 2025 at 08:54 PM
+-- Server version: 10.4.25-MariaDB
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -92,6 +92,7 @@ CREATE TABLE `item_list` (
   `description` text NOT NULL,
   `supplier_id` int(30) NOT NULL,
   `cost` float NOT NULL DEFAULT 0,
+  `sell_price` float NOT NULL DEFAULT 0,
   `status` tinyint(1) NOT NULL DEFAULT 1,
   `date_created` datetime NOT NULL DEFAULT current_timestamp(),
   `date_updated` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
@@ -101,11 +102,12 @@ CREATE TABLE `item_list` (
 -- Dumping data for table `item_list`
 --
 
-INSERT INTO `item_list` (`id`, `name`, `description`, `supplier_id`, `cost`, `status`, `date_created`, `date_updated`) VALUES
-(1, 'Item 101', 'Sample Only', 1, 150, 1, '2021-11-02 10:01:55', '2021-11-02 10:01:55'),
-(2, 'Item 102', 'Sample only', 2, 200, 1, '2021-11-02 10:02:12', '2021-11-02 10:02:12'),
-(3, 'Item 103', 'Sample', 1, 185, 1, '2021-11-02 10:02:27', '2021-11-02 10:02:27'),
-(4, 'Item 104', 'Sample only', 2, 205, 1, '2021-11-02 10:02:47', '2021-11-02 10:02:47');
+INSERT INTO `item_list` (`id`, `name`, `description`, `supplier_id`, `cost`, `sell_price`, `status`, `date_created`, `date_updated`) VALUES
+(1, 'Sugar', 'Sample Only', 1, 150, 0, 1, '2021-11-02 10:01:55', '2025-01-19 21:07:26'),
+(2, 'Milk', 'Sample only', 2, 200, 0, 1, '2021-11-02 10:02:12', '2025-01-19 21:07:26'),
+(3, 'Bananas', 'Sample', 1, 185, 0, 1, '2021-11-02 10:02:27', '2025-01-19 21:07:26'),
+(4, 'Fruits', 'Sample only', 2, 205, 0, 1, '2021-11-02 10:02:47', '2025-01-19 21:07:26'),
+(6, 'ICTS', 'Maize', 1, 6.5, 0, 1, '2025-01-19 21:22:38', '2025-01-19 21:22:38');
 
 -- --------------------------------------------------------
 
@@ -129,7 +131,8 @@ CREATE TABLE `po_items` (
 INSERT INTO `po_items` (`po_id`, `item_id`, `quantity`, `price`, `unit`, `total`) VALUES
 (1, 1, 500, 150, 'pcs', 75000),
 (2, 2, 300, 200, 'Boxes', 60000),
-(2, 4, 200, 205, 'pcs', 41000);
+(2, 4, 200, 205, 'pcs', 41000),
+(3, 6, 20, 6.5, 'boxes', 130);
 
 -- --------------------------------------------------------
 
@@ -158,7 +161,8 @@ CREATE TABLE `purchase_order_list` (
 
 INSERT INTO `purchase_order_list` (`id`, `po_code`, `supplier_id`, `amount`, `discount_perc`, `discount`, `tax_perc`, `tax`, `remarks`, `status`, `date_created`, `date_updated`) VALUES
 (1, 'PO-0001', 1, 81480, 3, 2250, 12, 8730, 'Sample', 2, '2021-11-03 11:20:22', '2021-11-03 11:21:00'),
-(2, 'PO-0002', 2, 107464, 5, 5050, 12, 11514, 'Sample PO Only', 2, '2021-11-03 11:50:50', '2021-11-03 11:52:15');
+(2, 'PO-0002', 2, 107464, 5, 5050, 12, 11514, 'Sample PO Only', 2, '2021-11-03 11:50:50', '2021-11-03 11:52:15'),
+(3, 'PO-0003', 1, 0, 0, 0, 2, 0, 'Hello', 0, '2025-01-19 21:23:55', '2025-01-19 21:23:55');
 
 -- --------------------------------------------------------
 
@@ -239,7 +243,8 @@ CREATE TABLE `sales_list` (
 --
 
 INSERT INTO `sales_list` (`id`, `sales_code`, `client`, `amount`, `remarks`, `stock_ids`, `date_created`, `date_updated`) VALUES
-(1, 'SALE-0001', 'John Smith', 7625, 'Sample Remarks', '24,25,26', '2021-11-03 14:03:30', '2021-11-03 14:08:27');
+(1, 'SALE-0001', 'John Smith', 7625, 'Sample Remarks', '24,25,26', '2021-11-03 14:03:30', '2021-11-03 14:08:27'),
+(2, 'SALE-0002', 'Guest', 370, 'Helloe World', '27', '2025-01-19 21:17:29', '2025-01-19 21:17:29');
 
 -- --------------------------------------------------------
 
@@ -275,7 +280,8 @@ INSERT INTO `stock_list` (`id`, `item_id`, `quantity`, `unit`, `price`, `total`,
 (17, 4, 5, 'boxes', 205, 1025, 2, '2021-11-03 13:45:53'),
 (24, 1, 10, 'pcs', 150, 1500, 2, '2021-11-03 14:08:27'),
 (25, 2, 5, 'pcs', 200, 1000, 2, '2021-11-03 14:08:27'),
-(26, 4, 25, 'boxes', 205, 5125, 2, '2021-11-03 14:08:27');
+(26, 4, 25, 'boxes', 205, 5125, 2, '2021-11-03 14:08:27'),
+(27, 3, 2, '1000ml', 185, 370, 2, '2025-01-19 21:17:29');
 
 -- --------------------------------------------------------
 
@@ -300,7 +306,8 @@ CREATE TABLE `supplier_list` (
 
 INSERT INTO `supplier_list` (`id`, `name`, `address`, `cperson`, `contact`, `status`, `date_created`, `date_updated`) VALUES
 (1, 'Supplier 101', 'Sample Supplier Address 101', 'Supplier Staff 101', '09123456789', 1, '2021-11-02 09:36:19', '2021-11-02 09:36:19'),
-(2, 'Supplier 102', 'Sample Address 102', 'Supplier Staff 102', '0987654332', 1, '2021-11-02 09:36:54', '2021-11-02 09:36:54');
+(2, 'Supplier 102', 'Sample Address 102', 'Supplier Staff 102', '0987654332', 1, '2021-11-02 09:36:54', '2021-11-02 09:36:54'),
+(4, '', '', '', '', 1, '2025-01-19 21:10:59', '2025-01-19 21:10:59');
 
 -- --------------------------------------------------------
 
@@ -473,13 +480,13 @@ ALTER TABLE `back_order_list`
 -- AUTO_INCREMENT for table `item_list`
 --
 ALTER TABLE `item_list`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `purchase_order_list`
 --
 ALTER TABLE `purchase_order_list`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `receiving_list`
@@ -497,19 +504,19 @@ ALTER TABLE `return_list`
 -- AUTO_INCREMENT for table `sales_list`
 --
 ALTER TABLE `sales_list`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `stock_list`
 --
 ALTER TABLE `stock_list`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `supplier_list`
 --
 ALTER TABLE `supplier_list`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `system_info`
