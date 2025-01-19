@@ -51,7 +51,7 @@ if(isset($_GET['id'])){
                                 $item = $conn->query("SELECT * FROM `item_list` where status = 1 order by `name` asc");
                                 while($row=$item->fetch_assoc()):
                                     $item_arr[$row['id']] = $row;
-                                    $cost_arr[$row['id']] = $row['cost'];
+                                    $cost_arr[$row['id']] = $row['sell_price'];
                                 endwhile;
                             ?>
                         <div class="col-md-3">
