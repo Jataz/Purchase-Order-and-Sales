@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 19, 2025 at 08:54 PM
+-- Generation Time: Jan 20, 2025 at 07:55 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -103,11 +103,12 @@ CREATE TABLE `item_list` (
 --
 
 INSERT INTO `item_list` (`id`, `name`, `description`, `supplier_id`, `cost`, `sell_price`, `status`, `date_created`, `date_updated`) VALUES
-(1, 'Sugar', 'Sample Only', 1, 150, 0, 1, '2021-11-02 10:01:55', '2025-01-19 21:07:26'),
-(2, 'Milk', 'Sample only', 2, 200, 0, 1, '2021-11-02 10:02:12', '2025-01-19 21:07:26'),
-(3, 'Bananas', 'Sample', 1, 185, 0, 1, '2021-11-02 10:02:27', '2025-01-19 21:07:26'),
-(4, 'Fruits', 'Sample only', 2, 205, 0, 1, '2021-11-02 10:02:47', '2025-01-19 21:07:26'),
-(6, 'ICTS', 'Maize', 1, 6.5, 0, 1, '2025-01-19 21:22:38', '2025-01-19 21:22:38');
+(1, 'Sugar', 'Sample Only', 1, 150, 180, 1, '2021-11-02 10:01:55', '2025-01-19 22:07:16'),
+(2, 'Milk', 'Sample only', 2, 200, 250, 1, '2021-11-02 10:02:12', '2025-01-19 22:07:16'),
+(3, 'Bananas', 'Sample', 1, 185, 190, 1, '2021-11-02 10:02:27', '2025-01-19 22:07:16'),
+(4, 'Fruits', 'Sample only', 2, 205, 230, 1, '2021-11-02 10:02:47', '2025-01-19 22:07:16'),
+(6, 'ICTS', 'Maize', 1, 6.5, 8, 1, '2025-01-19 21:22:38', '2025-01-19 22:07:16'),
+(7, 'Jay', 'Helloe', 1, 8, 12, 1, '2025-01-19 22:06:31', '2025-01-19 22:06:31');
 
 -- --------------------------------------------------------
 
@@ -224,6 +225,17 @@ INSERT INTO `return_list` (`id`, `return_code`, `supplier_id`, `amount`, `remark
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `roles`
+--
+
+CREATE TABLE `roles` (
+  `id` int(11) NOT NULL,
+  `role_name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `sales_list`
 --
 
@@ -244,7 +256,8 @@ CREATE TABLE `sales_list` (
 
 INSERT INTO `sales_list` (`id`, `sales_code`, `client`, `amount`, `remarks`, `stock_ids`, `date_created`, `date_updated`) VALUES
 (1, 'SALE-0001', 'John Smith', 7625, 'Sample Remarks', '24,25,26', '2021-11-03 14:03:30', '2021-11-03 14:08:27'),
-(2, 'SALE-0002', 'Guest', 370, 'Helloe World', '27', '2025-01-19 21:17:29', '2025-01-19 21:17:29');
+(2, 'SALE-0002', 'Guest', 370, 'Helloe World', '27', '2025-01-19 21:17:29', '2025-01-19 21:17:29'),
+(3, 'SALE-0003', 'Guest', 40, 'hello', '28', '2025-01-19 22:15:04', '2025-01-19 22:15:04');
 
 -- --------------------------------------------------------
 
@@ -281,7 +294,8 @@ INSERT INTO `stock_list` (`id`, `item_id`, `quantity`, `unit`, `price`, `total`,
 (24, 1, 10, 'pcs', 150, 1500, 2, '2021-11-03 14:08:27'),
 (25, 2, 5, 'pcs', 200, 1000, 2, '2021-11-03 14:08:27'),
 (26, 4, 25, 'boxes', 205, 5125, 2, '2021-11-03 14:08:27'),
-(27, 3, 2, '1000ml', 185, 370, 2, '2025-01-19 21:17:29');
+(27, 3, 2, '1000ml', 185, 370, 2, '2025-01-19 21:17:29'),
+(28, 6, 5, 'boxea', 8, 40, 2, '2025-01-19 22:15:04');
 
 -- --------------------------------------------------------
 
@@ -375,6 +389,17 @@ CREATE TABLE `user_meta` (
   `date_created` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_roles`
+--
+
+CREATE TABLE `user_roles` (
+  `user_id` int(11) NOT NULL,
+  `role_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 --
 -- Indexes for dumped tables
 --
@@ -430,6 +455,13 @@ ALTER TABLE `return_list`
   ADD KEY `supplier_id` (`supplier_id`);
 
 --
+-- Indexes for table `roles`
+--
+ALTER TABLE `roles`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `role_name` (`role_name`);
+
+--
 -- Indexes for table `sales_list`
 --
 ALTER TABLE `sales_list`
@@ -467,6 +499,13 @@ ALTER TABLE `user_meta`
   ADD KEY `user_id` (`user_id`);
 
 --
+-- Indexes for table `user_roles`
+--
+ALTER TABLE `user_roles`
+  ADD PRIMARY KEY (`user_id`,`role_id`),
+  ADD KEY `role_id` (`role_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -480,7 +519,7 @@ ALTER TABLE `back_order_list`
 -- AUTO_INCREMENT for table `item_list`
 --
 ALTER TABLE `item_list`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `purchase_order_list`
@@ -501,16 +540,22 @@ ALTER TABLE `return_list`
   MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `roles`
+--
+ALTER TABLE `roles`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `sales_list`
 --
 ALTER TABLE `sales_list`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `stock_list`
 --
 ALTER TABLE `stock_list`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `supplier_list`
@@ -579,6 +624,13 @@ ALTER TABLE `return_list`
 --
 ALTER TABLE `stock_list`
   ADD CONSTRAINT `stock_list_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `item_list` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `user_roles`
+--
+ALTER TABLE `user_roles`
+  ADD CONSTRAINT `user_roles_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `user_roles_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
