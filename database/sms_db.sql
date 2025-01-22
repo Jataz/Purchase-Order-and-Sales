@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 20, 2025 at 07:55 PM
+-- Generation Time: Jan 22, 2025 at 09:46 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -52,7 +52,8 @@ INSERT INTO `back_order_list` (`id`, `receiving_id`, `po_id`, `bo_code`, `suppli
 (1, 1, 1, 'BO-0001', 1, 40740, 3, 1125, 12, 4365, NULL, 1, '2021-11-03 11:20:38', '2021-11-03 11:20:51'),
 (2, 2, 1, 'BO-0002', 1, 20370, 3, 562.5, 12, 2182.5, NULL, 2, '2021-11-03 11:20:51', '2021-11-03 11:21:00'),
 (3, 4, 2, 'BO-0003', 2, 42826, 5, 2012.5, 12, 4588.5, NULL, 1, '2021-11-03 11:51:41', '2021-11-03 11:52:02'),
-(4, 5, 2, 'BO-0004', 2, 10640, 5, 500, 12, 1140, NULL, 2, '2021-11-03 11:52:02', '2021-11-03 11:52:15');
+(4, 5, 2, 'BO-0004', 2, 10640, 5, 500, 12, 1140, NULL, 2, '2021-11-03 11:52:02', '2021-11-03 11:52:15'),
+(5, 7, 3, 'BO-0005', 1, 66.3, 0, 0, 2, 1.3, NULL, 2, '2025-01-22 08:43:59', '2025-01-22 08:44:42');
 
 -- --------------------------------------------------------
 
@@ -78,7 +79,8 @@ INSERT INTO `bo_items` (`bo_id`, `item_id`, `quantity`, `price`, `unit`, `total`
 (2, 1, 125, 150, 'pcs', 18750),
 (3, 2, 150, 200, 'Boxes', 30000),
 (3, 4, 50, 205, 'pcs', 10250),
-(4, 2, 50, 200, 'Boxes', 10000);
+(4, 2, 50, 200, 'Boxes', 10000),
+(5, 6, 10, 6.5, 'boxes', 65);
 
 -- --------------------------------------------------------
 
@@ -133,7 +135,8 @@ INSERT INTO `po_items` (`po_id`, `item_id`, `quantity`, `price`, `unit`, `total`
 (1, 1, 500, 150, 'pcs', 75000),
 (2, 2, 300, 200, 'Boxes', 60000),
 (2, 4, 200, 205, 'pcs', 41000),
-(3, 6, 20, 6.5, 'boxes', 130);
+(3, 6, 20, 6.5, 'boxes', 130),
+(4, 7, 50, 8, '1000ml', 400);
 
 -- --------------------------------------------------------
 
@@ -163,7 +166,8 @@ CREATE TABLE `purchase_order_list` (
 INSERT INTO `purchase_order_list` (`id`, `po_code`, `supplier_id`, `amount`, `discount_perc`, `discount`, `tax_perc`, `tax`, `remarks`, `status`, `date_created`, `date_updated`) VALUES
 (1, 'PO-0001', 1, 81480, 3, 2250, 12, 8730, 'Sample', 2, '2021-11-03 11:20:22', '2021-11-03 11:21:00'),
 (2, 'PO-0002', 2, 107464, 5, 5050, 12, 11514, 'Sample PO Only', 2, '2021-11-03 11:50:50', '2021-11-03 11:52:15'),
-(3, 'PO-0003', 1, 0, 0, 0, 2, 0, 'Hello', 0, '2025-01-19 21:23:55', '2025-01-19 21:23:55');
+(3, 'PO-0003', 1, 0, 0, 0, 2, 0, 'Hello', 2, '2025-01-19 21:23:55', '2025-01-22 08:44:42'),
+(4, 'PO-0004', 1, 383.8, 5, 20, 1, 3.8, '', 0, '2025-01-22 08:38:08', '2025-01-22 08:38:08');
 
 -- --------------------------------------------------------
 
@@ -196,7 +200,9 @@ INSERT INTO `receiving_list` (`id`, `form_id`, `from_order`, `amount`, `discount
 (3, 2, 2, 20370, 3, 562.5, 12, 2182.5, '3', 'Success', '2021-11-03 11:21:00', '2021-11-03 11:21:00'),
 (4, 2, 1, 64638, 5, 3037.5, 12, 6925.5, '4,5', 'Sample Receiving (Partial)', '2021-11-03 11:51:41', '2021-11-03 11:51:41'),
 (5, 3, 2, 32186, 5, 1512.5, 12, 3448.5, '6,7', 'BO Receive (Partial)', '2021-11-03 11:52:02', '2021-11-03 11:52:02'),
-(6, 4, 2, 10640, 5, 500, 12, 1140, '8', 'Sample Success', '2021-11-03 11:52:15', '2021-11-03 11:52:15');
+(6, 4, 2, 10640, 5, 500, 12, 1140, '8', 'Sample Success', '2021-11-03 11:52:15', '2021-11-03 11:52:15'),
+(7, 3, 1, 66.3, 0, 0, 2, 1.3, '30', 'Hello', '2025-01-22 08:43:59', '2025-01-22 08:43:59'),
+(8, 5, 2, 66.3, 0, 0, 2, 1.3, '31', '', '2025-01-22 08:44:42', '2025-01-22 08:44:42');
 
 -- --------------------------------------------------------
 
@@ -241,6 +247,7 @@ CREATE TABLE `roles` (
 
 CREATE TABLE `sales_list` (
   `id` int(30) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `sales_code` varchar(50) NOT NULL,
   `client` text DEFAULT NULL,
   `amount` float NOT NULL DEFAULT 0,
@@ -254,10 +261,16 @@ CREATE TABLE `sales_list` (
 -- Dumping data for table `sales_list`
 --
 
-INSERT INTO `sales_list` (`id`, `sales_code`, `client`, `amount`, `remarks`, `stock_ids`, `date_created`, `date_updated`) VALUES
-(1, 'SALE-0001', 'John Smith', 7625, 'Sample Remarks', '24,25,26', '2021-11-03 14:03:30', '2021-11-03 14:08:27'),
-(2, 'SALE-0002', 'Guest', 370, 'Helloe World', '27', '2025-01-19 21:17:29', '2025-01-19 21:17:29'),
-(3, 'SALE-0003', 'Guest', 40, 'hello', '28', '2025-01-19 22:15:04', '2025-01-19 22:15:04');
+INSERT INTO `sales_list` (`id`, `user_id`, `sales_code`, `client`, `amount`, `remarks`, `stock_ids`, `date_created`, `date_updated`) VALUES
+(1, 10, 'SALE-0001', 'John Smith', 7625, 'Sample Remarks', '24,25,26', '2021-11-03 14:03:30', '2025-01-22 10:42:07'),
+(2, 10, 'SALE-0002', 'Guest', 370, 'Helloe World', '27', '2025-01-19 21:17:29', '2025-01-22 10:42:07'),
+(3, 10, 'SALE-0003', 'Guest', 40, 'hello', '28', '2025-01-19 22:15:04', '2025-01-22 10:42:07'),
+(4, 12, 'SALE-0004', 'Guest', 1150, 'Hello', '29', '2025-01-20 21:23:22', '2025-01-22 10:42:07'),
+(5, 12, 'SALE-0005', 'Gueafrst', 16, '', '32', '2025-01-22 10:12:29', '2025-01-22 10:42:07'),
+(6, 12, 'SALE-0006', 'Guest', 11500, '', '33', '2025-01-22 10:18:08', '2025-01-22 10:42:07'),
+(7, 1, 'SALE-0007', 'Guest', 1150, '', '', '2025-01-22 10:25:10', '2025-01-22 10:25:10'),
+(8, 1, 'SALE-0008', 'Guest', 3800, '', '34', '2025-01-22 10:31:50', '2025-01-22 10:31:50'),
+(9, 1, 'SALE-0009', 'Africa', 6250, '', '35', '2025-01-22 10:33:50', '2025-01-22 10:33:50');
 
 -- --------------------------------------------------------
 
@@ -295,7 +308,14 @@ INSERT INTO `stock_list` (`id`, `item_id`, `quantity`, `unit`, `price`, `total`,
 (25, 2, 5, 'pcs', 200, 1000, 2, '2021-11-03 14:08:27'),
 (26, 4, 25, 'boxes', 205, 5125, 2, '2021-11-03 14:08:27'),
 (27, 3, 2, '1000ml', 185, 370, 2, '2025-01-19 21:17:29'),
-(28, 6, 5, 'boxea', 8, 40, 2, '2025-01-19 22:15:04');
+(28, 6, 5, 'boxea', 8, 40, 2, '2025-01-19 22:15:04'),
+(29, 4, 5, 'boxes', 230, 1150, 2, '2025-01-20 21:23:22'),
+(30, 6, 10, 'boxes', 6.5, 65, 1, '2025-01-22 08:43:59'),
+(31, 6, 10, 'boxes', 6.5, 65, 1, '2025-01-22 08:44:42'),
+(32, 6, 2, '1000ml', 8, 16, 2, '2025-01-22 10:12:29'),
+(33, 4, 50, '1000ml', 230, 11500, 2, '2025-01-22 10:18:08'),
+(34, 3, 20, '20', 190, 3800, 2, '2025-01-22 10:31:50'),
+(35, 2, 25, 'boxes', 250, 6250, 2, '2025-01-22 10:33:50');
 
 -- --------------------------------------------------------
 
@@ -321,7 +341,7 @@ CREATE TABLE `supplier_list` (
 INSERT INTO `supplier_list` (`id`, `name`, `address`, `cperson`, `contact`, `status`, `date_created`, `date_updated`) VALUES
 (1, 'Supplier 101', 'Sample Supplier Address 101', 'Supplier Staff 101', '09123456789', 1, '2021-11-02 09:36:19', '2021-11-02 09:36:19'),
 (2, 'Supplier 102', 'Sample Address 102', 'Supplier Staff 102', '0987654332', 1, '2021-11-02 09:36:54', '2021-11-02 09:36:54'),
-(4, '', '', '', '', 1, '2025-01-19 21:10:59', '2025-01-19 21:10:59');
+(4, 'Business Automation', 'helo', 'hello', '025', 1, '2025-01-19 21:10:59', '2025-01-22 08:39:05');
 
 -- --------------------------------------------------------
 
@@ -340,8 +360,8 @@ CREATE TABLE `system_info` (
 --
 
 INSERT INTO `system_info` (`id`, `meta_field`, `meta_value`) VALUES
-(1, 'name', 'Stock Management System - PHP'),
-(6, 'short_name', 'SMS- PHP'),
+(1, 'name', 'Stock Management System '),
+(6, 'short_name', 'SMS'),
 (11, 'logo', 'uploads/logo-1635816671.png'),
 (13, 'user_avatar', 'uploads/user_avatar.jpg'),
 (14, 'cover', 'uploads/cover-1635816671.png'),
@@ -374,7 +394,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `firstname`, `middlename`, `lastname`, `username`, `password`, `avatar`, `last_login`, `type`, `date_added`, `date_updated`) VALUES
 (1, 'Adminstrator', NULL, 'Admin', 'admin', '0192023a7bbd73250516f069df18b500', 'uploads/avatar-1.png?v=1635556826', NULL, 1, '2021-01-20 14:02:37', '2021-10-30 09:20:26'),
 (10, 'John', NULL, 'Smith', 'jsmith', '39ce7e2a8573b41ce73b5ba41617f8f7', 'uploads/avatar-10.png?v=1635920488', NULL, 2, '2021-11-03 14:21:28', '2021-11-03 14:21:28'),
-(11, 'Claire', NULL, 'Blake', 'cblake', 'cd74fae0a3adf459f73bbf187607ccea', 'uploads/avatar-11.png?v=1635920566', NULL, 1, '2021-11-03 14:22:46', '2021-11-03 14:22:46');
+(11, 'Claire', NULL, 'Blake', 'cblake', 'cd74fae0a3adf459f73bbf187607ccea', 'uploads/avatar-11.png?v=1635920566', NULL, 1, '2021-11-03 14:22:46', '2021-11-03 14:22:46'),
+(12, 'Africa Freedom', NULL, 'Jatakalula', 'africa', '7f9df20400b236f923782020d6f394c4', 'uploads/avatar-12.png?v=1737401105', NULL, 2, '2025-01-20 21:25:05', '2025-01-20 21:25:05');
 
 -- --------------------------------------------------------
 
@@ -513,7 +534,7 @@ ALTER TABLE `user_roles`
 -- AUTO_INCREMENT for table `back_order_list`
 --
 ALTER TABLE `back_order_list`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `item_list`
@@ -525,13 +546,13 @@ ALTER TABLE `item_list`
 -- AUTO_INCREMENT for table `purchase_order_list`
 --
 ALTER TABLE `purchase_order_list`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `receiving_list`
 --
 ALTER TABLE `receiving_list`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `return_list`
@@ -549,13 +570,13 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `sales_list`
 --
 ALTER TABLE `sales_list`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `stock_list`
 --
 ALTER TABLE `stock_list`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `supplier_list`
@@ -573,7 +594,7 @@ ALTER TABLE `system_info`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Constraints for dumped tables

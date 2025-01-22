@@ -510,6 +510,12 @@ Class Master extends DBConnection {
 
 	}
 	function save_sale(){
+		if (!isset($_SESSION['userdata']['user_id'])) {
+			return json_encode(['status' => 'failed', 'msg' => 'User not logged in.']);
+		}
+	
+		$user_id = $_SESSION['userdata']['user_id'];
+		
 		if(empty($_POST['id'])){
 			$prefix = "SALE";
 			$code = sprintf("%'.04d",1);
@@ -533,6 +539,7 @@ Class Master extends DBConnection {
 				$data .=" `{$k}` = '{$v}' ";
 			}
 		}
+		$data .= ", `user_id` = '{$user_id}'";
 		if(empty($id)){
 			$sql = "INSERT INTO `sales_list` set {$data}";
 		}else{

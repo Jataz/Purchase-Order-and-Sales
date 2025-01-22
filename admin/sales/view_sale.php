@@ -38,8 +38,8 @@ if($qry->num_rows >0){
                         <th class="text-center py-1 px-2">Qty</th>
                         <th class="text-center py-1 px-2">Unit</th>
                         <th class="text-center py-1 px-2">Item</th>
-                        <th class="text-center py-1 px-2">Cost</th>
-                        <th class="text-center py-1 px-2">Total</th>
+                        <th class="text-center py-1 px-2">Unit Price</th>
+                        <th class="text-center py-1 px-2">Total Price</th>
                     </tr>
                 </thead>
                 <tbody>

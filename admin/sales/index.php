@@ -10,19 +10,20 @@
         <div class="container-fluid">
 			<table class="table table-bordered table-stripped">
                     <colgroup>
-                        <col width="5%">
-                        <col width="15%">
-                        <col width="20%">
-                        <col width="20%">
-                        <col width="10%">
-                        <col width="10%">
-                        <col width="10%">
+                        <col >
+                        <col >
+                        <col >
+                        <col >
+                        <col >
+                        <col >
+                        <col >
                     </colgroup>
                     <thead>
                         <tr>
                             <th>#</th>
                             <th>Date Created</th>
                             <th>Sale Code</th>
+                            <th>Sold By</th>
                             <th>Client</th>
                             <th>Items</th>
                             <th>Amount</th>
@@ -32,7 +33,7 @@
                     <tbody>
                         <?php 
                         $i = 1;
-                        $qry = $conn->query("SELECT * FROM `sales_list` order by `date_created` desc");
+                        $qry = $conn->query("SELECT s.*, u.firstname, u.lastname FROM `sales_list` s inner join `users` u on s.user_id = u.id order by s.`date_created` desc");
                         while($row = $qry->fetch_assoc()):
                             $row['items'] = count(explode(',',$row['stock_ids']));
                         ?>
@@ -40,6 +41,7 @@
                                 <td class="text-center"><?php echo $i++; ?></td>
                                 <td><?php echo date("Y-m-d H:i",strtotime($row['date_created'])) ?></td>
                                 <td><?php echo $row['sales_code'] ?></td>
+                                <td><?php echo $row['firstname'] . ' ' . $row['lastname'] ?></td>
                                 <td><?php echo $row['client'] ?></td>
                                 <td class="text-right"><?php echo number_format($row['items']) ?></td>
                                 <td class="text-right"><?php echo number_format($row['amount'],2) ?></td>
