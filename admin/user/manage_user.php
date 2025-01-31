@@ -41,7 +41,9 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
 					<label for="type">User Type</label>
 					<select name="type" id="type" class="custom-select" value="<?php echo isset($meta['type']) ? $meta['type']: '' ?>" required>
 						<option value="1" <?php echo isset($type) && $type == 1 ? 'selected': '' ?>>Administrator</option>
-						<option value="2"> <?php echo isset($type) && $type == 2 ? 'selected': '' ?>Staff</option>
+						<option value="2"> <?php echo isset($type) && $type == 2 ? 'selected': '' ?>Sales Rep</option>
+						<option value="3"> <?php echo isset($type) && $type == 3 ? 'selected': '' ?>Accountant</option>
+						<option value="4"> <?php echo isset($type) && $type == 4 ? 'selected': '' ?>Manager</option>
 					</select>
 				</div>
 				<div class="form-group col-6">

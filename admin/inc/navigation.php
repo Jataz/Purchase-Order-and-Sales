@@ -22,99 +22,182 @@
                 <div class="clearfix"></div>
                 <!-- Sidebar Menu -->
                 <nav class="mt-4">
-                   <ul class="nav nav-pills nav-sidebar flex-column text-sm nav-compact nav-flat nav-child-indent nav-collapse-hide-child" data-widget="treeview" role="menu" data-accordion="false">
-                    <li class="nav-item dropdown">
-                      <a href="./" class="nav-link nav-home">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>
-                          Dashboard
-                        </p>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="<?php echo base_url ?>admin/?page=purchase_order" class="nav-link nav-purchase_order">
-                        <i class="nav-icon fas fa-th-list"></i>
-                        <p>
-                          Purchase Order
-                        </p>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="<?php echo base_url ?>admin/?page=receiving" class="nav-link nav-receiving">
-                        <i class="nav-icon fas fa-boxes"></i>
-                        <p>
-                          Receiving
-                        </p>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="<?php echo base_url ?>admin/?page=back_order" class="nav-link nav-back_order">
-                        <i class="nav-icon fas fa-exchange-alt"></i>
-                        <p>
-                          Back Order
-                        </p>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="<?php echo base_url ?>admin/?page=return" class="nav-link nav-return">
-                        <i class="nav-icon fas fa-undo"></i>
-                        <p>
-                          Return List
-                        </p>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="<?php echo base_url ?>admin/?page=stocks" class="nav-link nav-stocks">
-                        <i class="nav-icon fas fa-table"></i>
-                        <p>
-                          Stocks
-                        </p>
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="<?php echo base_url ?>admin/?page=sales" class="nav-link nav-sales">
-                        <i class="nav-icon fas fa-file-invoice-dollar"></i>
-                        <p>
-                          Sale List
-                        </p>
-                      </a>
-                    </li>
-                  <?php if($_settings->userdata('type') == 1): ?>
-                    <li class="nav-header">Maintenance</li>
-                    <li class="nav-item dropdown">
-                      <a href="<?php echo base_url ?>admin/?page=maintenance/supplier" class="nav-link nav-maintenance_supplier">
-                        <i class="nav-icon fas fa-truck-loading"></i>
-                        <p>
-                          Supplier List
-                        </p>
-                      </a>
-                    </li>
-                    <li class="nav-item dropdown">
-                      <a href="<?php echo base_url ?>admin/?page=maintenance/item" class="nav-link nav-maintenance_item">
-                        <i class="nav-icon fas fa-boxes"></i>
-                        <p>
-                          Item List
-                        </p>
-                      </a>
-                    </li>
-                    <li class="nav-item dropdown">
-                      <a href="<?php echo base_url ?>admin/?page=user/list" class="nav-link nav-user_list">
-                        <i class="nav-icon fas fa-users"></i>
-                        <p>
-                          User List
-                        </p>
-                      </a>
-                    </li>
-                    <li class="nav-item dropdown">
-                      <a href="<?php echo base_url ?>admin/?page=system_info" class="nav-link nav-system_info">
-                        <i class="nav-icon fas fa-cogs"></i>
-                        <p>
-                          Settings
-                        </p>
-                      </a>
-                    </li>
-                    <?php endif; ?>
+                  <ul class="nav nav-pills nav-sidebar flex-column text-sm nav-compact nav-flat nav-child-indent nav-collapse-hide-child" data-widget="treeview" role="menu" data-accordion="false">
+                      <li class="nav-item dropdown">
+                          <a href="./" class="nav-link nav-home">
+                              <i class="nav-icon fas fa-tachometer-alt"></i>
+                              <p>Dashboard</p>
+                          </a>
+                      </li>
 
+                        <!-- Navigation for Type 1 (Admin) -->
+                      <?php if($_settings->userdata('type') == 1): ?>
+                        <!-- Common Navigation for All User Types -->
+                        <li class="nav-item">
+                          <a href="<?php echo base_url ?>admin/?page=purchase_order" class="nav-link nav-purchase_order">
+                            <i class="nav-icon fas fa-th-list"></i>
+                            <p>Purchase Order</p>
+                          </a>
+                        </li>
+
+                        <li class="nav-item">
+                          <a href="<?php echo base_url ?>admin/?page=receiving" class="nav-link nav-receiving">
+                            <i class="nav-icon fas fa-boxes"></i>
+                            <p>Receiving</p>
+                          </a>
+                        </li>
+
+                        <li class="nav-item">
+                          <a href="<?php echo base_url ?>admin/?page=back_order" class="nav-link nav-back_order">
+                            <i class="nav-icon fas fa-exchange-alt"></i>
+                            <p>Back Order</p>
+                          </a>
+                        </li>
+
+                        <li class="nav-item">
+                          <a href="<?php echo base_url ?>admin/?page=return" class="nav-link nav-return">
+                            <i class="nav-icon fas fa-undo"></i>
+                            <p>Return List</p>
+                          </a>
+                        </li>
+
+                        <li class="nav-item">
+                          <a href="<?php echo base_url ?>admin/?page=stocks" class="nav-link nav-stocks">
+                            <i class="nav-icon fas fa-table"></i>
+                            <p>Stocks</p>
+                          </a>
+                        </li>
+
+                        <li class="nav-item">
+                          <a href="<?php echo base_url ?>admin/?page=sales" class="nav-link nav-sales">
+                            <i class="nav-icon fas fa-file-invoice-dollar"></i>
+                            <p>Sale List</p>
+                          </a>
+                        </li>
+
+                        <li class="nav-header">Maintenance</li>
+
+                        <li class="nav-item dropdown">
+                          <a href="<?php echo base_url ?>admin/?page=maintenance/supplier" class="nav-link nav-maintenance_supplier">
+                            <i class="nav-icon fas fa-truck-loading"></i>
+                            <p>Supplier List</p>
+                          </a>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                          <a href="<?php echo base_url ?>admin/?page=maintenance/item" class="nav-link nav-maintenance_item">
+                            <i class="nav-icon fas fa-boxes"></i>
+                            <p>Item List</p>
+                          </a>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                          <a href="<?php echo base_url ?>admin/?page=user/list" class="nav-link nav-user_list">
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>User List</p>
+                          </a>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                          <a href="<?php echo base_url ?>admin/?page=system_info" class="nav-link nav-system_info">
+                            <i class="nav-icon fas fa-cogs"></i>
+                            <p>Settings</p>
+                          </a>
+                        </li>
+                      <?php endif; ?>
+
+                      <!-- Navigation for Type 2 (Sales Rep) -->
+                      <?php if($_settings->userdata('type') == 2): ?>
+                        <li class="nav-item">
+                          <a href="<?php echo base_url ?>admin/?page=stocks" class="nav-link nav-stocks">
+                            <i class="nav-icon fas fa-table"></i>
+                            <p>Stocks</p>
+                          </a>
+                        </li>
+
+                        <li class="nav-item">
+                          <a href="<?php echo base_url ?>admin/?page=sales" class="nav-link nav-sales">
+                            <i class="nav-icon fas fa-file-invoice-dollar"></i>
+                            <p>Sales</p>
+                          </a>
+                        </li>
+                      <?php endif; ?>
+
+                      <!-- Navigation for Type 3 (Accountant) -->
+                      <?php if($_settings->userdata('type') == 3): ?>
+                          <li class="nav-item">
+                              <a href="<?php echo base_url ?>admin/?page=sales" class="nav-link nav-sales">
+                                  <i class="nav-icon fas fa-file-invoice-dollar"></i>
+                                  <p>Sale List</p>
+                              </a>
+                          </li>
+
+                          <li class="nav-item dropdown">
+                            <a href="<?php echo base_url ?>admin/?page=maintenance/supplier" class="nav-link nav-maintenance_supplier">
+                              <i class="nav-icon fas fa-truck-loading"></i>
+                              <p>Supplier List</p>
+                            </a>
+                          </li>
+
+                          <li class="nav-item dropdown">
+                            <a href="<?php echo base_url ?>admin/?page=maintenance/item" class="nav-link nav-maintenance_item">
+                              <i class="nav-icon fas fa-boxes"></i>
+                              <p>Item List</p>
+                            </a>
+                          </li>
+
+                          <li class="nav-item">
+                            <a href="<?php echo base_url ?>admin/?page=purchase_order" class="nav-link nav-purchase_order">
+                              <i class="nav-icon fas fa-th-list"></i>
+                              <p>Purchase Order</p>
+                            </a>
+                          </li>
+                      <?php endif; ?>
+
+                      <!-- Navigation for Type 4 (Manager) -->
+                      <?php if($_settings->userdata('type') == 4): ?>
+                        <li class="nav-item">
+                          <a href="<?php echo base_url ?>admin/?page=purchase_order" class="nav-link nav-purchase_order">
+                            <i class="nav-icon fas fa-th-list"></i>
+                            <p>Purchase Order</p>
+                          </a>
+                        </li>
+
+                        <li class="nav-item">
+                          <a href="<?php echo base_url ?>admin/?page=receiving" class="nav-link nav-receiving">
+                            <i class="nav-icon fas fa-boxes"></i>
+                            <p>Receiving</p>
+                          </a>
+                        </li>
+
+                        <li class="nav-item">
+                          <a href="<?php echo base_url ?>admin/?page=back_order" class="nav-link nav-back_order">
+                            <i class="nav-icon fas fa-exchange-alt"></i>
+                            <p>Back Order</p>
+                          </a>
+                        </li>
+
+                        <li class="nav-item">
+                          <a href="<?php echo base_url ?>admin/?page=return" class="nav-link nav-return">
+                            <i class="nav-icon fas fa-undo"></i>
+                            <p>Return List</p>
+                          </a>
+                        </li>
+
+                        <li class="nav-item">
+                          <a href="<?php echo base_url ?>admin/?page=stocks" class="nav-link nav-stocks">
+                            <i class="nav-icon fas fa-table"></i>
+                            <p>Stocks</p>
+                          </a>
+                        </li>
+
+                        <li class="nav-item">
+                          <a href="<?php echo base_url ?>admin/?page=sales" class="nav-link nav-sales">
+                            <i class="nav-icon fas fa-file-invoice-dollar"></i>
+                            <p>Sale List</p>
+                          </a>
+                        </li>
+                      <?php endif; ?>
                   </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
